@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:c="http://java.sun.com/jsp/jstl/core"
+		template="/template.xhtml">
+		
+	<ui:define name="menu">
+	   	<div id="topo">
+	       	<div class="logo"/>
+	       	<div id="cpfLogado1" style="position:relative; float:right; width:860px; text-align: right;padding-bottom:15px;" >
+				<h:form id="sair">
+					<h:outputText value="Olá, " class="cpfLogado" />
+					<h:outputText value="#{solicitarCertidaoBean.recuperaNomeUsuario}" class="cpfLogado" />
+			    	<h:commandButton value="Sair" id="botaoSair1" action="#{solicitarCertidaoBean.sair}" styleClass="btn_primario" />
+				</h:form>
+			</div>
+	    </div>
+	
+	   	<ui:insert name="menu">
+			<ui:include src="/view/xhtml/menu.xhtml" />
+	    </ui:insert>
+    </ui:define>
+    
+	<ui:define name="head">
+		<script type="text/javascript">
+			$(document).ready(function() {
+				document.getElementById("form:solicitarCertidaoMenu").className = "marcado" ;
+			});
+		</script>
+	</ui:define>
+    
+	<ui:define name="body">
+		
+		<h:form id="formularioSolicitacao" enctype="multipart/form-data">
+			
+			<div id="div_principal" style="margin:0 auto; width:860px; z-index:1000; margin-top:20px;" >
+	    	
+	    		<p:messages id="messages" autoUpdate="true" closable="true" display="text" style="width:100%;"/>
+	    		
+	    		<table style="width: 800px;" width="100%">
+	    			<tr>
+						<td style="height:17px; width:730px; text-align:justify; padding-left:10px;">
+							<span>
+								<h:outputLabel value="#{msg.lbl_uc_nome_solicitar_certidao}" id="idNomePagina" style="font-size:18px;" class="escrita_verde" />
+							</span>
+						</td>
+					</tr>
+				</table>
+			
+				<center>
+		    	
+			    	<div class="bordaArredondada" style="width:800px;">
+
+			    		<p:fieldset id="field_info" styleClass="fieldsetInfo">
+			    		
+			    			<div style="width:600px;">
+			    				<h:outputText value="Nome Instituição:" class="fonte_sistema"/><br/>
+				    			<h:outputText value="#{solicitarCertidaoBean.nomeOrgao}"/>
+				    			<h:outputText value=" | " rendered="#{loginBean.exibeTrocaInstituicao}"/>
+			    				<p:commandLink ajax="true" onclick="popupTrocarInstituicao.show();" style="color: blue; text-decoration: underline;" rendered="#{loginBean.exibeTrocaInstituicao}">Trocar Instituição</p:commandLink>
+			    				<h:outputText value=" | " rendered="#{loginBean.exibeTrocaInstituicao}"/>
+			    			</div>
+			    			
+			    			<div style="width:600px;">
+			    				<h:outputText value="Nome Entidade:" class="fonte_sistema"/><br/>
+			    				<h:outputText value="#{solicitarCertidaoBean.nomeEntidade}"/>
+				    			<h:outputText value=" | " rendered="#{solicitarCertidaoBean.exibeTrocaEntidade}"/>
+			    				<p:commandLink ajax="false" action="selecionarEntidade" style="color: blue; text-decoration: underline;" rendered="#{solicitarCertidaoBean.exibeTrocaEntidade}">Trocar Entidade</p:commandLink>
+			    				<h:outputText value=" | " rendered="#{solicitarCertidaoBean.exibeTrocaEntidade}"/>			    				
+			    			</div>
+			    			
+			    			<div style="width:250px;">
+			    				<h:outputText value="Tipo Instituição:" class="fonte_sistema"/><br/>
+				    			<h:outputText value="#{solicitarCertidaoBean.inputTipoInstituicao.value}"/>
+			    			</div>
+			    			<div style="width:200px;">
+			    				<h:outputText value="Município:" class="fonte_sistema"/><br/>
+				    			<h:outputText value="#{solicitarCertidaoBean.inputMunicipio.value}"/>
+			    			</div>
+			    			<div>
+				    			<h:outputText value="CNPJ Orgão/Entidade:" class="fonte_sistema"/><br/>
+				    			<h:outputText value="#{solicitarCertidaoBean.cnpj}"/>
+			    			</div>
+							
+							<div class="clear"></div>
+							
+			    			<div style="width:250px;">
+			    				<h:outputText value="Nome:" class="fonte_sistema"/><br/>
+				    			<h:outputText value="#{solicitarCertidaoBean.inputNome.value}"/>
+			    			</div>
+			    			<div style="width:200px;">
+			    				<h:outputText value="E-mail:" class="fonte_sistema"/><br/>
+			    				<h:outputText value="#{solicitarCertidaoBean.inputEmail.value}"/>
+			    			</div>
+			    			<div>
+			    				<h:outputText value="CPF:" class="fonte_sistema"/><br/>
+			    				<h:outputText value="#{solicitarCertidaoBean.cpf}" >
+			    				</h:outputText>
+			    			</div>
+			    		
+			    		</p:fieldset>
+       					
+<!--        				<p:outputPanel rendered="#{solicitarCertidaoBean.seUsuarioInternoTce}" > -->
+       				
+<!-- 	       				<div align="left" style="float:left; width: 355px;"> -->
+<!-- 	   						<h:outputText value="#{msg.lbl_municipio} * :" class="fonte_sistema"/> -->
+	   						
+<!-- 	   						<div style="width: 100%; padding-top:0px"/> -->
+	   						
+<!-- 	   						<p:autoComplete id="atcMunicipioFiltro" -->
+<!-- 	   										completeMethod="#{solicitarCertidaoBean.completarObjetoMunicipio}" -->
+<!-- 	   										value="#{solicitarCertidaoBean.municipioSelecionado}"  -->
+<!-- 											minQueryLength="1"  -->
+<!-- 											dropdown="true"  -->
+<!-- 											style="position: relative; width: 329px; display: grid;" -->
+<!-- 											var="var"  -->
+<!-- 											itemLabel="#{solicitarCertidaoBean.obterTextoExibicaoMunicipio(var)}"  -->
+<!-- 											itemValue="#{var}" -->
+<!-- 											forceSelection="true"  -->
+<!-- 											scrollHeight="200"  -->
+<!-- 											required="true"  -->
+<!-- 											label="#{msg.lbl_municipio}" > -->
+<!-- 								<f:converter converterId="EntityConverterAutoComplete" /> -->
+<!-- 								<f:attribute name="lista" value="#{solicitarCertidaoBean.listaMunicipio}" /> -->
+<!-- 							</p:autoComplete> -->
+							
+<!-- 	   					</div> -->
+<!--        				</p:outputPanel> -->
+       					
+       					<div style="width: 100%; padding-top:60px"/>
+       					
+			    		<div align="left" style="float:left; width: 350px; padding-left:50px;">
+       						<h:outputText value="Tipo Certidão:" class="fonte_sistema"/>
+       						<h:outputText value="* " style="color:red;" /><br/>
+       						<p:selectOneMenu id="certidaoSelecionada" value="#{solicitarCertidaoBean.tipoCertidao}" style="width: 675px;" required="true">  
+								<f:selectItems value="#{solicitarCertidaoBean.listaCertidao}" style="height:18px;"/> 
+       							<p:ajax event="change" listener="#{solicitarCertidaoBean.validaTipoCertidao}" update="formularioSolicitacao"/>								 
+							</p:selectOneMenu>
+       					</div>
+       					
+       					<div style="width: 100%; padding-top:60px"/>
+       					
+       					<h:panelGroup id="panelOP" rendered="#{solicitarCertidaoBean.exibeCampoOP}">
+       						
+       						<div align="left" style="float:left; width: 350px; padding-left:50px;">
+	       						
+	       						<h:outputText value="Houve contratação de operação de crédito junto a instituição 
+	       							financeira que não atendeu às condições e limites estabelecidos pela Lei Complementar n° 101/2000?" class="fonte_sistema"/><br/>
+	       						<h:outputText value="Exercício 2014 "></h:outputText>
+	       						<p:selectOneMenu id="indContratacaoOP2014" value="#{solicitarCertidaoBean.indContratacaoOP2014}" label="Contratação Operação Credito 2014" 
+	       							style="width: 100px;" required="#{solicitarCertidaoBean.exibeCampoOP}">  
+									<f:selectItems value="#{solicitarCertidaoBean.listaSimNao}" style="height:18px;"/> 
+								</p:selectOneMenu>
+								<br/>
+								<h:outputText value="Exercício 2015"></h:outputText>
+	       						<p:selectOneMenu id="indContratacaoOP2015" value="#{solicitarCertidaoBean.indContratacaoOP2015}" label="Contratação Operação Credito 2015"
+	       							style="width: 100px;" required="#{solicitarCertidaoBean.exibeCampoOP}">  
+									<f:selectItems value="#{solicitarCertidaoBean.listaSimNao}" style="height:18px;"/> 
+								</p:selectOneMenu>
+								
+								<br/><br/>
+	       						<h:outputText value="Foram realizadas operações de crédito vedadas pelo artigo 37 da Lei Complementar n° 101/2000?" class="fonte_sistema"/><br/>
+	       						<h:outputText value="Exercício 2014 "></h:outputText>
+	       						<p:selectOneMenu id="indRealizacaoOP2014" value="#{solicitarCertidaoBean.indRealizacaoOP2014}"  label="Realização Operação Credito 2014"
+	       							style="width: 100px;" required="#{solicitarCertidaoBean.exibeCampoOP}">  
+									<f:selectItems value="#{solicitarCertidaoBean.listaSimNao}" style="height:18px;"/> 
+								</p:selectOneMenu>
+								<br/>
+								<h:outputText value="Exercício 2015"></h:outputText>
+	       						<p:selectOneMenu id="indRealizacaoOP2015" value="#{solicitarCertidaoBean.indRealizacaoOP2015}" label="Realização Operação Credito 2015" 
+	       							style="width: 100px;" required="#{solicitarCertidaoBean.exibeCampoOP}">  
+									<f:selectItems value="#{solicitarCertidaoBean.listaSimNao}" style="height:18px;"/> 
+								</p:selectOneMenu>
+								
+	       					</div>
+       					
+       					</h:panelGroup>
+       					
+       					<div style="width: 100%; padding-top:60px"/>
+       					
+       					<div align="left" style="float:left; width: 275px; padding-left:50px;">
+       						<h:outputText value="Finalidade da Certidão:" class="fonte_sistema"/>
+       						<h:outputText value="* " style="color:red;" /><br/>
+       						<p:selectOneMenu id="finalidadeSelecionada" value="#{solicitarCertidaoBean.finalidade}" label="Finalidade da Certidão"
+       							style="width: 220px;" required="true">  
+								<f:selectItems value="#{solicitarCertidaoBean.listaFinalidade}" style="height:18px;"/>  
+							</p:selectOneMenu>
+       					</div>
+
+						<div align="left" style="float:left; width: 240px; padding-left:50px;">
+       						<h:outputText value="Ano Exercício da Certidão:" class="fonte_sistema"/>
+       						<h:outputText value="* " style="color:red;" /><br/>
+       						<p:selectOneMenu id="exercicios" value="#{solicitarCertidaoBean.anoExercicio}" style="width: 120px; ">  
+								<f:selectItems value="#{solicitarCertidaoBean.exercicios}" style="height:18px;"/>  
+							</p:selectOneMenu>
+       					</div>
+       					
+<!--        					<div align="left" style="float:left; width: 250px;"> -->
+<!--        						<h:outputText style="font-weight: bold;" value="Anexar Documento:" /> -->
+<!-- 							<br/> -->
+<!-- 							<h:outputText value="[Somente será aceito documento no formato PDF]" style="color:red; font-size:10px; font-weight: bold;"/> -->
+<!-- 							<br/> -->
+<!-- 							<p:fileUpload styleClass="inputUpload" value="#{solicitarCertidaoBean.file}" -->
+<!-- 									mode="simple" /> -->
+<!--        					</div> -->
+       					
+       					<div style="width: 100%; padding-top:60px"/>
+	       					<table cellspacing="0" cellpadding="0" width="100%">
+								<tr>
+									<td style="text-align: left; padding-left:50px;">
+										<h:outputText value="* " style="color:red;" />
+										<h:outputText value="#{msg.lbl_campos_obrigatorios}" class="fonte_legenda" />
+									</td>
+								</tr>
+							</table>
+						<div>
+       					
+       					<div style="width: 100%; padding-top:60px"/>
+       					
+						<p:commandButton value="#{msg.lbl_botao_solicitar_certidao}"
+							ajax="false"
+							action="#{solicitarCertidaoBean.solicitarCertidao}"
+							styleClass="btn_primario" update="Sucesso Erro"/>
+						</div>
+					
+					</div>
+			    </center>
+		    </div>
+			  
+     		<p:dialog id="Sucesso" header="Sucesso" widgetVar="popupSucessoSolicitarcertidao" style="width:500px;" modal="true">  
+   				<h:outputText style="font-weight: bold;" value="#{solicitarCertidaoBean.msg}" /> 
+   				<div style="padding-top:20px;">
+					<p:commandButton  value="OK" action="#{solicitarCertidaoBean.carregarPaginaPrincipal}" ajax="false" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+				</div>
+			</p:dialog>
+			
+			
+			<p:dialog id="Erro" header="Erro" widgetVar="popupErroSolicitarcertidao" style="width:500px;" modal="true">
+ 				 	<h:outputText style="font-weight: bold;" value="#{solicitarCertidaoBean.msg}" /> 
+   				<div style="padding-top:20px;">
+					<p:commandButton  value="OK" action="#{solicitarCertidaoBean.carregarDadosUsuario}" ajax="false" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+   				</div>
+			</p:dialog> 
+			
+     		<p:dialog id="popupMensagemCertidaoSelecionada" widgetVar="popupMensagemCertidaoSelecionada" header="AVISO"
+     			style="width:500px;" modal="true" resizable="false" closable="false">  
+   				<h:outputText style="font-weight: bold;" value="O TEOR DA CERTIDÃO DE COMPETÊNCIA TRIBUTÁRIA ESTÁ CONTIDO NA CERTIDÃO DE LIMITES DA LRF - REF. 2016."/>
+   				<div  style="padding-top:20px;">
+					<p:commandButton  value="OK" oncomplete="popupMensagemCertidaoSelecionada.hide();"/>
+				</div>
+			</p:dialog>			
+		    
+		</h:form>
+
+    </ui:define>
+
+</ui:composition>

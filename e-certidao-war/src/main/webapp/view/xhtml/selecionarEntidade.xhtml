@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:c="http://java.sun.com/jsp/jstl/core"
+		template="/template.xhtml">
+		
+	<ui:define name="menu">
+	   	<div id="topo">
+	       	<div class="logo"/>
+	       	<div id="cpfLogado" style="position:relative; float:right; width:860px; text-align: right;padding-bottom:15px;" >
+	       		<h:form id="sair">
+					<h:outputText value="Olá, " class="cpfLogado" />
+					<h:outputText value="#{selecionarEntidadeBean.recuperaNomeUsuario}" class="cpfLogado" />
+				    <h:commandButton value="Sair" id="botaoSair" action="#{selecionarEntidadeBean.sair}" styleClass="btn_primario" />
+			    </h:form>
+			</div>
+	    </div>
+	
+<!-- 	   	<ui:insert name="menu"> -->
+<!-- 			<ui:include src="/view/xhtml/menu.xhtml" /> -->
+<!-- 	    </ui:insert> -->
+    </ui:define>
+	
+	<ui:define name="body">
+	
+		<h:form id="formularioSelecionarEntidade">
+			
+	    	<div id="div_principal" style="margin:0 auto; width:860px; z-index:1000; margin-top:20px;" >
+	    	
+	    		<p:messages id="messages" autoUpdate="true" closable="true" display="text" style="width:100%;"/>
+	    		
+	    		<table style="width: 800px;" width="100%">
+	    			<tr>
+						<td style="height:17px; width:730px; text-align:justify; padding-left:10px;">
+							<span>
+								<h:outputLabel value="Selecionar Entidade" id="idNomePagina" style="font-size:18px;" class="escrita_verde" />
+							</span>
+						</td>
+					</tr>
+				</table>
+				
+				<div class="bordaArredondada" style="width:800px;">
+				
+   					<div align="left" style="float:left; width: 350px;">
+       						<h:outputText value="Entidade:" class="fonte_sistema"/>
+       						<p:selectOneMenu id="entidadeSelecionada" value="#{selecionarEntidadeBean.entidadeSelecionada}"
+       								style="width: 590px; ">
+       							<f:selectItem itemLabel="SELECIONE" itemValue=""/>
+								<f:selectItems value="#{selecionarEntidadeBean.listaEntidade}" style="height:18px;" itemLabel="#{orgao.denominacaoOrgao}" itemValue="#{orgao}" var="orgao"/>
+								<f:converter converterId="converterOrgao" />  
+							</p:selectOneMenu>
+       				</div>
+       				
+       				<div style="width: 100%; padding-top:60px"/>
+       				
+					<div align="right" style="padding-right:20px;padding-top:60px;padding-bottom:10px;">
+						<table>
+							<tr>
+								<td>
+								</td>
+								<td>
+									<p:commandButton value="Avançar" id="btAvancar" styleClass="btn_primario_vermelho" actionListener="#{selecionarEntidadeBean.validaEntidade}" action="#{selecionarEntidadeBean.avancar}"/>
+								</td>
+							</tr>
+						</table>
+					</div>
+	  				
+	  				<hr/>
+
+				</div>
+	    	
+	    	</div>
+	    	
+	    </h:form>
+	    
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+
+<!-- 	<persistence-unit name="ECERTIDAO" transaction-type="JTA"> -->
+<!-- 		<jta-data-source>java:jboss/datasources/ecertidao</jta-data-source> -->
+
+<!-- 		<class>br.gov.mg.tce.model.Certidao</class> -->
+<!-- 		<class>br.gov.mg.tce.model.CertidaoPCA</class> -->
+<!-- 		<class>br.gov.mg.tce.model.CertidaoOperacaoCredito</class> -->
+<!-- 		<class>br.gov.mg.tce.model.OperacaoCreditoDados</class> -->
+<!-- 		<class>br.gov.mg.tce.model.CertidaoCompetenciaTributaria</class> -->
+		
+<!-- 		<class>br.gov.mg.tce.model.ControleVisualizaCertidao</class> -->
+<!-- 		<class>br.gov.mg.tce.model.ProcessoJulgadoAnalise</class> -->
+		
+<!-- 		<class>br.gov.mg.tce.model.CertidaoLimites</class> -->
+		
+<!-- 		<class>br.gov.mg.tce.model.Municipio</class> -->
+<!-- 		<class>br.gov.mg.tce.model.TipoDocumentoPeticao</class> -->
+<!-- 		<class>br.gov.mg.tce.model.TipoFinalidadePeticao</class> -->
+<!-- 		<class>br.gov.mg.tce.model.VwArquivosPeticaoEletronica</class> -->
+<!-- 		<class>br.gov.mg.tce.model.VwPeticaoEletronica</class> -->
+
+<!-- 		<properties> -->
+<!-- 			<property name="hibernate.show_sql" value="false" /> -->
+<!-- 			<property name="hibernate.transaction.manager_lookup_class" -->
+<!-- 				value="org.hibernate.transaction.JBossTransactionManagerLookup" /> -->
+<!-- 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" /> -->
+<!-- 		</properties> -->
+<!-- 	</persistence-unit> -->
+	
+<!-- 	<persistence-unit name="SIACELRF" transaction-type="JTA"> -->
+<!-- 		<jta-data-source>java:jboss/datasources/siace</jta-data-source> -->
+<!-- 		<properties> -->
+<!-- 			<property name="hibernate.show_sql" value="false" /> -->
+<!-- 			<property name="hibernate.transaction.manager_lookup_class" -->
+<!-- 				value="org.hibernate.transaction.JBossTransactionManagerLookup" /> -->
+<!-- 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" /> -->
+<!-- 		</properties> -->
+<!-- 	</persistence-unit> -->
+	
+<!-- 	<persistence-unit name="SIACEPCA2013" transaction-type="JTA"> -->
+<!-- 		<jta-data-source>java:jboss/datasources/siacepca2013</jta-data-source> -->
+<!-- 		<properties> -->
+<!-- 			<property name="hibernate.show_sql" value="false" /> -->
+<!-- 			<property name="hibernate.transaction.manager_lookup_class" -->
+<!-- 				value="org.hibernate.transaction.JBossTransactionManagerLookup" /> -->
+<!-- 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" /> -->
+<!-- 		</properties> -->
+<!-- 	</persistence-unit> -->
+	
+<!-- 	<persistence-unit name="SICOMBI" transaction-type="JTA"> -->
+<!-- 		<jta-data-source>java:jboss/datasources/SICOMBI</jta-data-source> -->
+		
+		
+<!-- 		<class>br.gov.mg.tce.dto.sicom.relatorio.limites.Limites</class> -->
+<!-- 		<class>br.gov.mg.tce.dto.sicom.relatorio.limites.EnvioCompletoExercicioFechado</class> -->
+<!-- 		<class>br.gov.mg.tce.dto.sicom.relatorio.PrevisaoArrecadacaoImpostos</class> -->
+<!-- 		<class>br.gov.mg.tce.dto.sicom.relatorio.ExercicioAndamento</class> -->
+<!-- 		<class>br.gov.mg.tce.dto.sicom.relatorio.MesEnvio</class> -->
+<!-- 		<class>br.gov.mg.tce.dto.sicom.relatorio.PrePca</class> -->
+		
+<!-- 		<properties> -->
+<!-- 			<property name="hibernate.show_sql" value="false" /> -->
+<!-- 			<property name="hibernate.transaction.manager_lookup_class" -->
+<!-- 				value="org.hibernate.transaction.JBossTransactionManagerLookup" /> -->
+<!-- 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" /> -->
+<!-- 		</properties> -->
+<!-- 	</persistence-unit> -->
+	
+<!-- 	<persistence-unit name="SICOMBI_NOVO" transaction-type="JTA"> -->
+<!-- 		<jta-data-source>java:jboss/datasources/SICOMBI_NOVO</jta-data-source> -->
+		
+		
+<!-- 		<class>br.gov.mg.tce.dto.sicom.relatorio.operacaoCredito.OperacaoCreditoExercFechado</class> -->
+<!-- 		<class>br.gov.mg.tce.dto.sicom.relatorio.operacaoCredito.OperacaoCreditoExercicioAndamentoTab1</class> -->
+<!-- 		<class>br.gov.mg.tce.dto.sicom.relatorio.operacaoCredito.OperacaoCreditoExercicioAndamentoTab2</class> -->
+<!-- 		<class>br.gov.mg.tce.dto.sicom.relatorio.operacaoCredito.OperacaoCreditoParecerPrevioTab1</class> -->
+<!-- 		<class>br.gov.mg.tce.dto.sicom.relatorio.operacaoCredito.OperacaoCreditoParecerPrevioTab3</class> -->
+<!-- 		<class>br.gov.mg.tce.dto.sicom.relatorio.OptanteSemestralidade</class> -->
+		
+<!-- 		<properties> -->
+<!-- 			<property name="hibernate.show_sql" value="false" /> -->
+<!-- 			<property name="hibernate.transaction.manager_lookup_class" -->
+<!-- 				value="org.hibernate.transaction.JBossTransactionManagerLookup" /> -->
+<!-- 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" /> -->
+<!-- 		</properties> -->
+<!-- 	</persistence-unit> -->
+
+</persistence>

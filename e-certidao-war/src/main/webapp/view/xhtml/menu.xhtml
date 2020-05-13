@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:p="http://primefaces.org/ui">
+	<center>
+	   	<div id="menu" >
+	   		
+	   		<h:form id="form">
+			   	<div id="menu">
+			   		<div class="widthMenu">
+						<p:menubar style="background: #109D8F !important; border: none; filter:none; box-shadow: none;">
+							<p:menuitem value="SOLICITAR CERTIDÃƒO" 
+										action="#{solicitarCertidaoBean.carregarDadosUsuario}"  
+										id="solicitarCertidaoMenu"
+										style="padding: 5px 0px 5px 5px; color: #FFF; background: #109D8F; z-index: 1004;" 
+										ajax="false" 
+										rendered="#{not loginBean.seUsuarioInternoTce}" />
+							
+							<p:menuitem value="CONSULTAR CERTIDÃƒO" 
+										action="#{consultarCertidaoBean.carregarCertidao}" 
+										id="consultarCertidaoMenu"
+										style="padding: 5px 0px 5px 5px; color: #FFF; background: #109D8F; z-index: 1004;" 
+										ajax="false" />
+							
+							<p:menuitem value="VALIDAR CERTIDÃƒO" 
+										action="validarCertidao" id="validarCertidaoMenu"
+										style="padding: 5px 0px 5px 5px; color: #FFF; background: #109D8F; z-index: 1004;" 
+										ajax="false" />
+						</p:menubar>
+						<p:tooltip for="validarCertidaoMenu" value="Valida se os dados na certidão estão atualizados."/>
+						<!-- <div align="right">
+			        		<p:commandButton value="Sair" id="botaoSair" onclick="efetuarLogout();"/>
+					  	</div> -->
+					</div>
+				</div>
+			</h:form>
+	   	
+	    </div>
+	</center>
+</ui:composition>

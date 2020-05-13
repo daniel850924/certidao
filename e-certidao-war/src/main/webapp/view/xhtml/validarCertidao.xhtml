@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	
+<html lang="pt-br"
+		xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:f="http://java.sun.com/jsf/core" 
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui" 
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:c="http://java.sun.com/jsp/jstl/core">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=9,chrome=1" />
+		<link href="http://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css" />
+
+		<title> E-Certidão </title>
+		
+		<style type="text/css">
+			@import url("/E-Certidao/view/css/estilo.css");
+			
+			.ui-messages-error {
+				margin: 0px -60px 0px 0px;
+			}
+			
+		</style>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				if (document.getElementById("form:validarCertidaoMenu") != null){
+					document.getElementById("form:validarCertidaoMenu").className = "marcado" ;
+				}
+			});
+		</script>
+	</h:head>	
+
+	<h:body>
+		<f:view contentType="text/html">
+			<center style="height:100%;">
+			
+				<h:form id="formularioCabecalho">
+					
+					<p:dialog widgetVar="popupTrocarInstituicao" resizable="false" draggable="false" closable="false" header="Trocar Instituição" modal="true" rendered="#{validarCertidaoBean.usuarioLogado != null}">
+					
+						<div align="left">
+						
+							<h:outputText value="Selecione a Instituição:"/>
+							
+							<br/>
+							<div class="clear" style="padding-bottom: 10px;"/>
+							
+	    					<p:selectOneMenu value="#{loginBean.instituicaoUsuarioSelecionada}" style="width: 220px; ">  
+								<f:selectItems value="#{loginBean.listaInstituicoesUsuario}" style="height:18px;"/>  
+							</p:selectOneMenu>				
+						
+						</div>		
+						
+						<div class="clear" style="padding-bottom: 20px;"/>
+					
+						<div style="width: 100%;" >
+							<p:commandButton value="Cancelar" onclick="popupTrocarInstituicao.hide();" styleClass="btn_primario"/>
+							<p:commandButton value="Trocar" actionListener="#{loginBean.trocarInstituicao}" action="#{solicitarCertidaoBean.carregarDadosUsuario}" styleClass="btn_primario"/>
+						</div>
+					
+					</p:dialog>
+					
+				</h:form>
+			
+				<table cellpadding="0" cellspacing="0" id="containerPrincipal" >
+					<tr>
+						<td id="containerMenu" onmouseover="$j('select').blur();">
+						   	<div id="topo">
+						       	<div class="logo"/>
+						       	<p:outputPanel rendered="#{validarCertidaoBean.usuarioLogado != null || validarCertidaoBean.usuarioInternoTceLogado != null}">
+							       	<div id="cpfLogado" style="position:relative; float:right; width:860px; text-align: right;padding-bottom:15px;" >
+							       		<h:form id="sair">
+											<h:outputText value="Olá, " class="cpfLogado" />
+											<h:outputText value="#{validarCertidaoBean.recuperaNomeUsuario}" class="cpfLogado" />
+										    <h:commandButton value="Sair" id="botaoSair" action="#{consultarCertidaoBean.sair}" styleClass="btn_primario" />
+									    </h:form>
+									</div>
+								</p:outputPanel> 
+						    </div>
+					
+							<p:outputPanel rendered="#{validarCertidaoBean.usuarioLogado != null || validarCertidaoBean.usuarioInternoTceLogado != null}">
+							   	<ui:insert name="menu">
+									<ui:include src="/view/xhtml/menu.xhtml" />
+							    </ui:insert>
+						    </p:outputPanel> 
+
+						</td>
+					</tr>
+					<tr>
+						<td id="containerForm">
+							<center>
+								<p id="nomeTela">
+									<ui:insert name="titulo"></ui:insert>
+								</p>
+								<h:form id="formularioConsultarCeridao">
+			
+							    	<div id="div_principal" style="margin:0 auto; width:860px; z-index:1000; margin-top:20px;" >
+							    	
+							    		<p:messages id="messages" autoUpdate="true" closable="true" display="text" style="width:100%;"/>
+							    		
+							    		<table style="width: 800px;" width="100%">
+							    			<tr>
+												<td style="height:17px; width:730px; text-align:justify; padding-left:10px;">
+													<span>
+														<h:outputLabel value="#{msg.lbl_uc_nome_validar_certidao}" id="idNomePagina" style="font-size:18px;" class="escrita_verde" />
+													</span>
+												</td>
+											</tr>
+										</table>
+										
+										<div class="bordaArredondada" style="width:800px;">
+											<div align="left" style="width: 350px; padding-left:50px;">
+												<h:outputText value="Protocolo:" class="fonte_sistema"/>
+												<h:outputText value="* " style="color:red;" /><br/>
+												<p:inputText value="#{validarCertidaoBean.numProtocoloFormatado}" style="width: 200px; height:18px;" size="16" onfocus="$(this).mask('99.9999.9999.9999');" required="true" requiredMessage="O campo Protocolo é obrigatório"/>
+						    				</div>
+						    				<div align="left" style="width: 350px; padding-left:50px;">
+						    					<h:outputText value="Imagem:" class="fonte_sistema"/><br/>	
+						    					<h:graphicImage id="capimg" width="140px" height="35px" value="#{facesContext.externalContext.requestContextPath}/../captcha.jpg" />
+											</div>
+											<div align="left" style="width: 350px; padding-left:50px;">
+						    					<h:outputText value="Código:" class="fonte_sistema"/>
+						    					<h:outputText value="* " style="color:red;" /><br/>
+												<p:inputText id="captcha" styleClass="form_texto" value="#{validarCertidaoBean.captchaDigitado}"></p:inputText>
+						    				</div>
+						    				<div style="width: 100%; padding-top:60px">
+						    					<p:commandButton value="#{msg.lbl_botao_validar_certidao}"
+													ajax="false"
+													action="#{validarCertidaoBean.validarCertidao}"
+													styleClass="btn_primario" update="Sucesso Erro field_info"/>
+											</div>
+											<br/>
+											<p:fieldset id="field_info" styleClass="fieldsetInfo" rendered="#{validarCertidaoBean.validarCertidaoResponse.msgRetorno != null}">
+												<h:panelGroup>
+													<div style="width:600px;"> 
+									    				<h:outputText value="#{validarCertidaoBean.validarCertidaoResponse.msgRetorno}" class="fonte_sistema"/>
+									    			</div>
+									    			
+									    			<p:commandButton rendered="#{validarCertidaoBean.validarCertidaoResponse.downloadFile}" value="Download da Certidão" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+     													<p:fileDownload value="#{validarCertidaoBean.file}" />
+													</p:commandButton>
+								    			</h:panelGroup>
+								    			
+											</p:fieldset>
+									    </div>
+							    	</div>
+						
+							    </h:form>
+							    <h:panelGroup>
+							    	
+							    </h:panelGroup>
+							</center>
+						</td>
+					</tr>
+					<tr>
+			        	<td id="rodape">
+			        		<div class="fundo_rodape">
+			        			<div style="height: 90px;"></div>
+								<div style="clear:both; width:100%; background: none; height:120px; padding-top:0px; margin:-80px 0 0 0; min-width:980px; position:relative; bottom:0; z-index:0; font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;">
+								   	<center>
+										<iframe src="http://www.tce.mg.gov.br/rodapePadrao/externo/index.html" scrolling="no" frameborder="0" width="100%"></iframe>
+								   	</center>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</center>
+		</f:view>
+	</h:body>
+</html>

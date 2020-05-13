@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+	<application>
+		<resource-bundle>
+			<base-name>message</base-name>
+			<var>msg</var>
+		</resource-bundle>
+
+		<locale-config>
+			<default-locale>pt_BR</default-locale>
+			<supported-locale>en_US</supported-locale> 
+		</locale-config>
+		
+		<message-bundle>javax.faces.Messages</message-bundle>
+		
+		<el-resolver>
+    	    org.springframework.web.jsf.el.SpringBeanFacesELResolver
+    	</el-resolver>
+    	
+	</application>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>principal</from-outcome>
+			<to-view-id>/principal.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+			
+	</navigation-rule>
+		
+		
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>solicitarCertidao</from-outcome>
+			<to-view-id>/view/xhtml/solicitarCertidao.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+			
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>consultarCertidao</from-outcome>
+			<to-view-id>/view/xhtml/consultarCertidao.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+			
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>selecionarEntidade</from-outcome>
+			<to-view-id>/view/xhtml/selecionarEntidade.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+			
+	</navigation-rule>	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>validarCertidao</from-outcome>
+			<to-view-id>/view/xhtml/validarCertidao.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+			
+	</navigation-rule>
+</faces-config>

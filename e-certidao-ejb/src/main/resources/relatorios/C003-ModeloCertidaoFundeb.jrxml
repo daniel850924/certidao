@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certidao" pageWidth="595" pageHeight="841" columnWidth="440" leftMargin="85" rightMargin="70" topMargin="70" bottomMargin="70">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<property name="net.sf.jasperreports.export.pdf.force.linebreak.policy" value="true"/>
+	<property name="net.sf.jasperreports.export.pdf.justified.letter.spacing" value="false"/>
+	<property name="ireport.background.image.properties" value="true,true,0.25,7,-8,8,8,568,568"/>
+	<parameter name="P_NUM_PROTOCOLO" class="java.lang.String"/>
+	<parameter name="P_INV_FUNDEB" class="java.lang.String"/>
+	<parameter name="P_ANO_REFERENCIA" class="java.lang.String"/>
+	<parameter name="P_NOME_MUNICIPIO" class="java.lang.String"/>
+	<parameter name="P_IMG_TCE_LOGO" class="java.io.InputStream"/>
+	<parameter name="P_NUM_PORTARIA" class="java.lang.String"/>
+	<parameter name="P_PROCESSO_DECISAO" class="java.lang.String"/>
+	<parameter name="P_LINK_ECERTIDAO" class="java.lang.String"/>
+	<parameter name="P_REGISTRO" class="java.lang.String"/>
+	<parameter name="P_OBSERVACAO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="71" splitType="Stretch">
+			<image isUsingCache="true">
+				<reportElement x="0" y="0" width="72" height="71"/>
+				<imageExpression><![CDATA[$P{P_IMG_TCE_LOGO}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="72" y="15" width="368" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TRIBUNAL DE CONTAS DO ESTADO DE MINAS GERAIS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="56" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="440" height="56"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">CERTIDÃO Nº "+$P{P_NUM_PROTOCOLO}+"</style>"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="352" splitType="Immediate">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="440" height="226" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="styled">
+					<font fontName="SansSerif" size="12"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["	Certifica-se, nos termos da Portaria nº "+$P{P_NUM_PORTARIA}+", com base nos dados contidos na Prestação de Contas Anual do exercício de "+
+"<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">"+$P{P_ANO_REFERENCIA}+"</style> do Município de <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">"+$P{P_NOME_MUNICIPIO}+
+"</style>, enviados por meio do Sistema Informatizado de Contas dos Municípios - SICOM, a aplicação anual de <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">"+$P{P_INV_FUNDEB}+
+"%</style> dos recursos do Fundo de Manutenção e Desenvolvimento da Educação Básica e de Valorização dos Profissionais da Educação – "+
+"<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">FUNDEB</style>, destinada ao pagamento da remuneração dos profissionais do magistério da educação básica em efetivo exercício"+
+" na rede pública, conforme instituído pela Emenda Constitucional nº 53/2006, e regulamentado pelo art. 22 da Lei nº 11.494/2007.\n	"+
+
+$P{P_REGISTRO} + "\n"+
+
+"	Os dados certificados poderão sujeitar-se à retificação em decorrência de deliberação da Prestação de Contas Anual e de inspeção ordinária,"+
+" extraordinária ou especial e tomada de contas que venham a ser realizadas no município ou de qualquer outro processo que venha a ser apreciado por esta Corte.\n"+
+
+$P{P_OBSERVACAO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd &apos;de&apos; MMMMM &apos;de&apos; yyyy ">
+				<reportElement positionType="Float" x="0" y="238" width="440" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Belo Horizonte, "+new SimpleDateFormat("dd 'de' MMMMM 'de' yyyy").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="269" width="440" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Esta certidão tem validade de 90 dias."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="300" width="440" height="35"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["A autenticidade desta certidão deverá ser confirmada via internet, no seguinte endereço: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="335" width="440" height="17"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<a href=\""+$P{P_LINK_ECERTIDAO}+"\">"+$P{P_LINK_ECERTIDAO}+"</a>"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:f="http://java.sun.com/jsf/core" 
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui" 
+		xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<h:head>
+	
+		<title>E-Certidao</title>
+		<style type="text/css">
+			@import url("/E-Certidao/view/css/estilo.css");
+		</style>
+		
+	</h:head>
+ 
+	<h:body>
+		<h:form id="form">
+			<f:view contentType="text/html">
+				<center style="height:100%;">
+					<div style="height:28px;" />
+					<div style="height:100px;">
+			       		<div class="logo" style="text-align:center; display: inline-block; vertical-align: middle; height:100%;"/>
+					</div>
+					<div style="height:29px;background-color:#109D8F;width:100%;"></div>
+					<table cellpadding="0" cellspacing="0" id="containerPrincipal" >
+						<tr>
+							<td id="containerForm">
+								<center>
+									<p id="nomeTela">
+										<div class="escrita_verde">
+											Erro
+										</div>
+									</p>
+									
+							    	<div id="div_principal" style="margin:0 auto; width:800px; z-index:1000; margin-top:20px;">
+										
+							    		<table style="width: 700px;">
+							    			<tr> 
+												<td style="text-align:center;">
+													<span>
+														<h:outputLabel value="" id="idLabelNome" style="font-size:18px;"  class="escrita_verde" />
+													</span>
+												</td>
+											</tr>
+										</table>
+										<div class="bordaArredondada" style="width:600px;border-radius:20px;">
+											<table>
+												<tr> 
+													<td>
+														<table cellspacing="0" cellpadding="12">
+															<tr>
+																<td align="center">
+																	<div class="escrita_verde">
+																		Este usuário não tem permissão de acesso a este sistema.<br/>
+													                   	<a href="http://www.tce.mg.gov.br/index.asp?cod_secao=1L&amp;tipo=2&amp;url=Contatos_Geral.asp&amp;cod_secao_menu=3" target="_blank" style="color: #109D8F;
+																				font-weight: bold;font-size: 15px;margin: 0;padding: 0; font-family:Arial, Geneva, sans-serif; text-decoration:none;">Clique aqui e fale com o TCE para maiores informações.</a>
+																	</div>
+																</td>
+															</tr>
+															
+														</table>
+														<br/>
+													</td>
+												</tr>
+								    		</table>
+										</div>
+							    	</div>
+								</center>
+							</td>
+						</tr>
+						<tr>
+				        	<td id="rodape">
+				        		<div class="fundo_rodape">
+				        			<div style="height: 90px;"></div>
+					        		<!--RODAPÉ PADRÃO DE TODOS OS SISTEMAS-->
+									<div style="clear:both; width:100%; background: none; height:349px; padding-top:0px; margin:-80px 0 0 0; min-width:980px; position:relative; bottom:0; z-index:0; font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;">
+										<iframe src="http://www.tce.mg.gov.br/rodapePadrao/externo/index.html" scrolling="no" frameborder="0" width="100%"></iframe>
+								   </div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</center>
+			</f:view>
+		</h:form>
+	</h:body>
+
+</html>

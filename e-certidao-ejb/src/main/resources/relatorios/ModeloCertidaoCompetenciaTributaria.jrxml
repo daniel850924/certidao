@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Mod_cert_Limites" pageWidth="595" pageHeight="842" columnWidth="495" leftMargin="50" rightMargin="50" topMargin="50" bottomMargin="50">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="396"/>
+	<parameter name="P_NUM_PROTOCOLO" class="java.lang.String"/>
+	<parameter name="P_ULTIMO_EXEC_ANA" class="java.lang.String"/>
+	<parameter name="P_PARAM1" class="java.lang.String"/>
+	<parameter name="P_PARAM8" class="java.lang.String"/>
+	<parameter name="P_ANO_REFERENCIA" class="java.lang.String"/>
+	<parameter name="P_NOME_MUNICIPIO" class="java.lang.String"/>
+	<parameter name="P_LINK_ECERTIDAO" class="java.lang.String"/>
+	<parameter name="P_OPCAO_SEMESTRALIDADE" class="java.lang.String"/>
+	<parameter name="P_IMG_TCE_LOGO" class="java.io.InputStream"/>
+	<parameter name="P_PARAM2" class="java.lang.String"/>
+	<parameter name="P_PARAM3" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image isUsingCache="true">
+				<reportElement x="0" y="0" width="79" height="79"/>
+				<imageExpression><![CDATA[$P{P_IMG_TCE_LOGO}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="72" y="15" width="383" height="28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TRIBUNAL DE CONTAS DO ESTADO DE MINAS GERAIS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="43" splitType="Stretch">
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="455" height="43"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">CERTIDÃO Nº "+$P{P_NUM_PROTOCOLO}+"/LRF</style>"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="267" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="495" height="267" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="styled">
+					<font fontName="SansSerif" size="11" isItalic="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_PARAM1}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="101">
+			<textField pattern="dd &apos;de&apos; MMMMM &apos;de&apos; yyyy ">
+				<reportElement positionType="Float" x="0" y="7" width="495" height="34"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Belo Horizonte, "+new SimpleDateFormat("dd 'de' MMMMM 'de' yyyy").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="41" width="495" height="60"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Esta certidão tem validade de 90 dias. \n" +
+"A autenticidade desta certidão deverá ser confirmada via internet, no seguinte endereço: \n" +
+$P{P_LINK_ECERTIDAO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

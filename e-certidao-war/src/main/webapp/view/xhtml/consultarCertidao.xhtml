@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:c="http://java.sun.com/jsp/jstl/core"
+		xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+		template="/template.xhtml">
+		
+	<ui:define name="menu">
+	   	<div id="topo">
+	       	<div class="logo"/>
+	       	<div id="cpfLogado" style="position:relative; float:right; width:860px; text-align: right;padding-bottom:15px;" >
+	       		<h:form id="sair">
+					<h:outputText value="Olá, " class="cpfLogado" />
+					<h:outputText value="#{consultarCertidaoBean.recuperaNomeUsuario}" class="cpfLogado" />
+				    <h:commandButton value="Sair" id="botaoSair" action="#{consultarCertidaoBean.sair}" styleClass="btn_primario" />
+			    </h:form>
+			</div>
+	    </div>
+	
+	   	<ui:insert name="menu">
+			<ui:include src="/view/xhtml/menu.xhtml" />
+	    </ui:insert>
+    </ui:define>
+	
+	<ui:define name="head">
+		<script type="text/javascript">
+			$(document).ready(function() {
+				document.getElementById("form:consultarCertidaoMenu").className = "marcado" ;
+			});
+		</script>
+	</ui:define>
+	
+	<ui:define name="body">
+	
+		<h:form id="formularioConsultarCeridao">
+		
+		<p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+		    <p:graphicImage value="../imagens/loading.gif" />
+		</p:dialog>
+			
+	    	<div id="div_principal" style="margin:0 auto; width:860px; z-index:1000; margin-top:20px;" >
+	    	
+	    		<p:messages id="messages" autoUpdate="true" closable="true" display="text" style="width:100%;"/>
+	    		
+	    		<table style="width: 800px;" width="100%">
+	    			<tr>
+						<td style="height:17px; width:730px; text-align:justify; padding-left:10px;">
+							<span>
+								<h:outputLabel value="#{msg.lbl_uc_nome_consultar_certidao}" id="idNomePagina" style="font-size:18px;" class="escrita_verde" />
+							</span>
+						</td>
+					</tr>
+				</table>
+				
+				<div class="bordaArredondada" style="width:800px;">
+				
+   					<div align="left" style="float:left; width: 350px;">
+       						<h:outputText value="Tipo Certidão:" class="fonte_sistema"/>
+       						<p:selectOneMenu id="certidaoSelecionada" value="#{consultarCertidaoBean.certidaoSelecionadaPesquisa}"
+       								style="width: 590px; ">
+								<f:selectItems value="#{consultarCertidaoBean.listaCertidao}" style="height:18px;"/>  
+							</p:selectOneMenu>
+       				</div>
+       				
+       				<div style="width: 100%; padding-top:60px"/>
+       				
+					<div align="left" style="float:left; width: 240px;">
+   						<h:outputText value="#{msg.lbl_protocolo}:" class="fonte_sistema"/>
+   						<p:inputText id="idProtocolo" binding="#{consultarCertidaoBean.inputProtocolo}" style="width: 200px; height:18px;" size="16" onfocus="$(this).mask('99.9999.9999.9999');"/>
+   					</div>
+   					
+					<div align="left" style="float:left; width: 100px;">
+   						<h:outputText value="#{msg.lbl_ano_exercicio}:" class="fonte_sistema"/>
+   						<p:inputText id="idAnoExercicio" binding="#{consultarCertidaoBean.inputAnoExercicio}" style="width: 60px; height:18px;" size="4" onfocus="$(this).mask('9999');"/>
+   					</div>
+   					
+   					<div align="left" style="float:left; width: 308px;">
+   						<p:outputPanel rendered="#{not consultarCertidaoBean.seUsuarioInternoTce}" >
+	  						<h:outputText value="Finalidade da Certidão:" class="fonte_sistema"/>
+	  						<p:selectOneMenu id="finalidadeSelecionada" value="#{consultarCertidaoBean.finalidadeSelecionadaPesquisa}"
+	  							style="width: 248px; ">
+								<f:selectItems value="#{consultarCertidaoBean.listaFinalidade}" style="height:18px;"/>  
+							</p:selectOneMenu>
+		       			</p:outputPanel>	
+						
+						<p:outputPanel rendered="#{consultarCertidaoBean.seUsuarioInternoTce}" >
+	   						<h:outputText value="#{msg.lbl_tipo_analise}:" class="fonte_sistema"/>
+	   						<p:selectOneMenu id="tipoAnaliseSelecionada" value="#{consultarCertidaoBean.tipoAnaliseSelecionada}"
+	   							style="width: 248px; ">
+								<f:selectItems value="#{consultarCertidaoBean.listaTipoAnalise}" style="height:18px;"/>  
+							</p:selectOneMenu>
+		       			</p:outputPanel>
+       				</div>
+       				<div style="width: 100%; padding-top:60px"/>
+       				
+       				<div align="left" style="float:left; width: 240px;">
+	     				<h:outputText value="#{msg.lbl_situacao_certidao}: " class="fonte_sistema"/>
+	     					<p:selectOneMenu id="slctSituacaoSelecionada" value="#{consultarCertidaoBean.situacaoSelecionada}" style="width: 207px; ">
+							<f:selectItems value="#{consultarCertidaoBean.listaSituacao}" style="height:18px;"/>  
+						</p:selectOneMenu>
+					</div>
+					<div align="left" style="float:left; width: 100px;">	
+						<p:outputPanel rendered="#{consultarCertidaoBean.seUsuarioInternoTce}" >
+							<h:outputText value="Forma de Emissão" class="fonte_sistema"/>
+       						<p:selectOneMenu id="forma" value="#{consultarCertidaoBean.formaSelecionada}" style="width: 207px; ">
+								<f:selectItems value="#{consultarCertidaoBean.listaForma}" style="height:18px;"/>  
+							</p:selectOneMenu>
+						</p:outputPanel>
+       				</div>
+       				<div style="width: 100%; padding-top:60px"/>
+       				
+       				<div align="left" style="float:left; width: 240px;">
+       					<p:outputPanel rendered="#{consultarCertidaoBean.seUsuarioInternoTce}" >
+	   						<h:outputText value="Data Início Emissão: " class="fonte_sistema"/>
+	   						<p:calendar id="datInit" value="#{consultarCertidaoBean.dataIncioEmissao}" />
+       					</p:outputPanel>
+       				</div>
+					<div align="left" style="float:left; width: 240px;">
+						<p:outputPanel rendered="#{consultarCertidaoBean.seUsuarioInternoTce}" >
+	   						<h:outputText value="Data Fim Emissão: " class="fonte_sistema"/>
+	   						<p:calendar id="datFim" value="#{consultarCertidaoBean.dataFimEmissao}" />
+       					</p:outputPanel>
+	   				</div>	
+       				<div style="width: 100%; padding-top:60px"/>
+       				
+       				<p:outputPanel rendered="#{consultarCertidaoBean.seUsuarioInternoTce}" >
+       				
+	       				<div align="left" style="float:left; width: 355px;">
+	   						<h:outputText value="#{msg.lbl_municipio} * :" class="fonte_sistema"/>
+	   						
+	   						<div style="width: 100%; padding-top:0px"/>
+	   						
+	   						<p:autoComplete id="atcMunicipioFiltro"
+	   										completeMethod="#{consultarCertidaoBean.completarObjetoMunicipio}"
+	   										value="#{consultarCertidaoBean.municipioSelecionado}" 
+											minQueryLength="1" 
+											dropdown="true" 
+											style="position: relative; width: 329px; display: grid;"
+											var="var" 
+											itemLabel="#{consultarCertidaoBean.obterTextoExibicaoMunicipio(var)}" 
+											itemValue="#{var}"
+											forceSelection="true" 
+											scrollHeight="200" 
+											global="false"
+											required="false" 
+											label="#{msg.lbl_municipio}" >
+								<f:converter converterId="EntityConverterAutoComplete" />
+								<f:attribute name="lista" value="#{consultarCertidaoBean.listaMunicipio}" />
+							</p:autoComplete>
+							
+	   					</div>
+       				</p:outputPanel>
+       				
+					<div align="right" style="padding-right:20px;padding-top:60px;padding-bottom:10px;">
+						<table>
+							<tr>
+								<td>
+									<p:commandButton value="LIMPAR" id="btLimparCampos" styleClass="btn_primario_vermelho"  actionListener="#{consultarCertidaoBean.limparCampos}" ajax="false"/>
+								</td>
+								<td>
+									<p:commandButton value="#{msg.lbl_botao_pesquisar}" id="btPesquisarCertidao" styleClass="btn_primario_vermelho" 
+													 actionListener="#{consultarCertidaoBean.pesquisarCertidao}" onclick="listagemArquivos.getPaginator().setPage(0)" 
+													 update="resultTable messages"/>
+								</td>
+							</tr>
+						</table>
+					</div>
+	  				<hr/>
+	  				
+		   			<table cellspacing="20" cellpadding="1" width="100%" >
+		   				<tr>
+		   					<td align="left" >
+			    				<h:outputLabel value="#{msg.lbl_resultado_pesquisa}" style="font-size:12px; font-family:Comic Sans;" class="escrita_verde" />
+					    		<h:outputLabel value="#{msg.lbl_info_selecione_item}" style="font-size:10px; font-weight:normal;" class="escrita_verde" />
+		    				</td>
+		    				<td align="right" >
+					    		<p:commandButton id="btVisualizarJustificativa" value="#{msg.lbl_botao_visualizar}" styleClass="btn_primario" 
+					    				actionListener="#{consultarCertidaoBean.visualizarJustificativa}"  
+					    				disabled="#{consultarCertidaoBean.habilitaBotaoVisualizarJustificativa}" visible="#{consultarCertidaoBean.habilitaBotaoVisualizarJustificativa}" update="Justificativa" >
+								</p:commandButton>
+								
+								<p:commandButton id="btVisualizarArquivo" value="#{msg.lbl_botao_visualizar_arquivo}" ajax="false" 
+										actionListener="#{consultarCertidaoBean.obterArquivo}" styleClass="btn_primario"
+										disabled="#{consultarCertidaoBean.habilitaBotaoVisualizarArquivo}" visible="#{consultarCertidaoBean.habilitaBotaoVisualizarArquivo}">
+										<p:fileDownload value="#{consultarCertidaoBean.file}" />
+								</p:commandButton>
+		    				</td>
+		    			</tr>
+		   			</table>
+		   			
+		   			
+		   			<p:dataTable id="resultTable" 
+		   						 var="itemLista"
+		   						 widgetVar="listagemArquivos"
+	    						 value="#{consultarCertidaoBean.listagem}"
+	    						 selection="#{consultarCertidaoBean.certidaoSelecionada}"
+	    						 emptyMessage="Nao foi encontrado nenhum registro."
+	    						 paginator="true" 
+	    						 rows="5"
+	    						 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+	    						 sortBy="#{itemLista.datSolicitacao}"
+	    						 sortOrder="descending">  
+	   			 			
+	   			 			<p:ajax event="rowSelect" listener="#{consultarCertidaoBean.habilitaBotoes}"
+		   			 				update=":formularioConsultarCeridao:btVisualizarJustificativa :formularioConsultarCeridao:btVisualizarArquivo"/>
+	   			 			
+	   			 			<p:column selectionMode="single" style="height:36px;" headerText="Selecione" />
+	   			 				 
+	      					<p:column sortBy="#{itemLista.protocoloEditado}">
+								<f:facet name="header" style="width:80px;">
+									<br/>#{msg.lbl_dsc_protocolo}
+								</f:facet>
+									<h:outputText value="#{itemLista.protocoloEditado}" style="font-size: 11px;"/>
+	      					</p:column>	
+	      					
+	      					<p:column sortBy="#{itemLista.dscMunicipio}" rendered="#{consultarCertidaoBean.seUsuarioInternoTce}" >
+								<f:facet name="header" style="width:80px;">
+									<br/>#{msg.lbl_dsc_municipio}
+								</f:facet>
+									<h:outputText value="#{itemLista.dscMunicipio}" style="font-size: 11px;"/>
+	      					</p:column>	
+	      						      					
+	      					<p:column sortBy="#{itemLista.numAnoRef}">
+								<f:facet name="header" style="width:80px;">
+									<br/>Ano
+								</f:facet>
+									<h:outputText value="#{itemLista.numAnoRef}" style="font-size: 11px;"/>
+	      					</p:column>	
+	      					
+	      					<p:column sortBy="#{itemLista.datSolicitacao}" rendered="#{not consultarCertidaoBean.seUsuarioInternoTce}" id="dtSoliticao">
+								<f:facet name="header" style="width:80px;">
+									<br/>Data Solicitação
+								</f:facet>
+									<h:outputText value="#{itemLista.datSolicitacao}" style="font-size: 11px;">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText>
+	      					</p:column>	
+	      					
+	      					<p:column sortBy="#{itemLista.datEmissao}" rendered="#{consultarCertidaoBean.seUsuarioInternoTce}" id="datEmissao">
+								<f:facet name="header" style="width:80px;">
+									<br/>Data Emissão
+								</f:facet>
+									<h:outputText value="#{itemLista.datEmissao}" style="font-size: 11px;">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText>
+	      					</p:column>
+	      			
+	      					<p:column sortBy="#{itemLista.dscTipoDocPeticao}">
+								<f:facet name="header" style="width:80px;">
+									<br/>#{msg.lbl_dsc_Tipo_Doc_Peticao}
+								</f:facet>
+									<h:outputText value="#{itemLista.dscTipoDocPeticao}" style="font-size: 11px; word-break: break-word;"/>
+	      					</p:column>	
+	      					
+	      					<p:column sortBy="#{itemLista.dscTipoFinalidade}" rendered="#{not consultarCertidaoBean.seUsuarioInternoTce}">
+								<f:facet name="header" style="width:80px;">
+									<br/>Finalidade Certidao
+								</f:facet>
+									<h:outputText value="#{itemLista.dscTipoFinalidade}" style="font-size: 11px;"/>
+	      					</p:column>	
+
+	      					<p:column sortBy="#{itemLista.dscTipoAnalise}" rendered="#{consultarCertidaoBean.seUsuarioInternoTce}">
+								<f:facet name="header" style="width:80px;">
+									<br/>${msg.lbl_grid_tipo_analise}
+								</f:facet>
+									<h:outputText value="#{itemLista.dscTipoAnalise}" style="font-size: 11px;"/>
+	      					</p:column>	
+	      					
+	      					<p:column sortBy="#{itemLista.dscSituacao}">
+					
+								<f:facet name="header" style="width:80px;">
+					
+									<br/>#{msg.lbl_dsc_situacao_analise}
+					
+								</f:facet>
+					
+									<h:outputText value="#{itemLista.dscSituacao}" style="font-size: 11px;"/>
+	      			
+	      					</p:column>
+	      					
+	      					<p:column sortBy="#{itemLista.datVisualizacaoCertidao}" id="dtVisualizacaoCertidao" rendered="#{consultarCertidaoBean.seUsuarioInternoTce}">
+					
+								<f:facet name="header" style="width:80px;">
+					
+									<br/>#{msg.lbl_grid_data_visualizacao_arquivo}
+					
+								</f:facet>
+					
+									<h:outputText value="#{itemLista.datVisualizacaoCertidao}" style="font-size: 11px;">
+										<f:convertDateTime pattern="dd/MM/yyyy  HH:MM" />
+									</h:outputText>
+	      			
+	      					</p:column>
+
+						<f:facet name="footer">
+					        TOTAL #{fn:length(consultarCertidaoBean.listagem.obterLista())}
+					    </f:facet>
+	      				</p:dataTable>
+		    		
+				</div>
+	    	
+	    	</div>
+	    	
+	       <p:dialog id="Justificativa" header="#{msg.lbl_justificativaTecnica}" widgetVar="popupConsultarJustificativa" modal="true">
+	    		<h:outputText style="font-weight:bold;" value="#{consultarCertidaoBean.msg}"/>
+    			<div style="padding-top:20px;">
+					<p:commandButton  value="OK"  onclick="PF('popupConsultarJustificativa').close();"
+						styleClass="ui-confirmdialog-yes"
+						icon="ui-icon-check"/>
+				</div>
+		   </p:dialog>
+
+	    </h:form>
+	    
+    </ui:define>
+
+</ui:composition>
