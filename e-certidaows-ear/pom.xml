@@ -68,10 +68,10 @@
 									<goal>deploy</goal>
 								</goals>
 								<configuration>
-									<hostname>${gov.mg.tce.jboss.hostname}</hostname>
-									<port>${gov.mg.tce.jboss.port}</port>
-									<username>${gov.mg.tce.jboss.username}</username>
-									<password>${gov.mg.tce.jboss.password}</password>
+									<hostname>150.136.83.93</hostname>
+									<port>9999</port>
+									<username>jenkisadm</username>
+									<password>123456</password>
 								</configuration>
 							</execution>
 						</executions>
