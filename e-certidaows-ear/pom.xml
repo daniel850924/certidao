@@ -68,7 +68,7 @@
 									<goal>deploy</goal>
 								</goals>
 								<configuration>
-									<hostname>150.136.83.93</hostname>
+									<hostname>150.136.83.93</hostname> 
 									<port>9999</port>
 									<username>jenkisadm</username>
 									<password>123456</password>
